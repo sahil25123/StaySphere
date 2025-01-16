@@ -46,12 +46,25 @@ app.get("/listings/new", (req,res)=>{
 
 //create route
 app.post("/listings", async (req, res) => {
-    let {title, description,image, price, location, category}= req.body;
-    const listing= new Listing({title, description, price, location, category});
+    let { title, description, image, price, location, country } = req.body;
+
+    // Create the listing object with the image properly formatted
+    const listing = new Listing({
+        title,
+        description,
+        image: {
+            filename: "listingimage", // Default filename or any placeholder value
+            url: image, // The URL entered by the user
+        },
+        price,
+        location,
+        country,
+    });
+
     await listing.save();
-    res.redirect(`/listings/${listing._id}`)
-}
-)
+    res.redirect(`/listings/${listing._id}`);
+});
+
     
 // show route
 app.get("/listings/:id", async (req, res) => {
@@ -71,12 +84,35 @@ app.get("/listings/:id/edit", async (req, res) => {
 
 //update route
 app.put("/listings/:id", async (req, res) => {
-    let {id}= req.params;
-    let {title, description, image, price, location, category}= req.body;
-    const listing= await Listing.findByIdAndUpdate
-    (id, {title, description, image, price, location, category}, {new: true});
-    res.redirect(`/listings/${listing._id}`)
-    })
+    let { id } = req.params;
+    let { title, description, image, price, location, category } = req.body;
+
+    // Find the existing listing
+    const existingListing = await Listing.findById(id);
+
+    if (!existingListing) {
+        return res.status(404).send("Listing not found");
+    }
+
+    // Update the listing and retain the existing image if not provided
+    const listing = await Listing.findByIdAndUpdate(
+        id,
+        {
+            title,
+            description,
+            image: image
+                ? { filename: existingListing.image.filename, url: image } // Update URL, retain filename
+                : existingListing.image, // Retain existing image object
+            price,
+            location,
+            category,
+        },
+        { new: true } // Return the updated document
+    );
+
+    res.redirect(`/listings/${listing._id}`);
+});
+
 
 //delete route
 app.delete("/listings/:id", async (req, res) => {
