@@ -1,0 +1,38 @@
+<% layout("/layouts/boillerplate") %>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="listing-container">
+            <!-- Listing Details Card -->
+            <div class="card listing-card">
+                <!-- Image Section -->
+                <img src="<%= listing.image.url %>" alt="Listing Image" class="card-img-top listing-img">
+
+                <!-- Details Section -->
+                <div class="card-body">
+                    <h1 class="listing-header"><%= listing.title %></h1>
+                    <p class="listing-text mb-4"><%= listing.description %></p>
+
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Price:</strong> ₹<%= listing.price.toLocaleString("en-IN") %>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Location:</strong> <%= listing.location %>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Country:</strong> <%= listing.country %>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Footer with Actions -->
+                <div class="card-footer d-flex justify-content-between align-items-center">
+                    <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary px-4 py-2">Edit Listing</a>
+                    <form method="post" action="/listings/<%= listing._id %>?_method=DELETE" class="mb-0">
+                        <button type="submit" class="btn btn-danger px-4 py-2">Delete Listing</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

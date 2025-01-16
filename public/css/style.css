@@ -1,0 +1,106 @@
+.navbar{
+    height: 5rem;
+    background-color:white;
+}
+.navbar-brand{
+    font-size: 1.75rem;
+    
+    align-content: center;
+
+}
+.nav-link{
+    color: #4f05da;
+}
+footer {
+    background-color: #343a40; /* Dark gray */
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.footer-container .btn-success:hover {
+    background-color: #28a745; /* Slightly lighter green */
+}
+.card{
+    border: none;
+    margin:1.2rem;
+
+
+}
+    
+.card-img-top{
+    border-radius: 1rem; 
+    width: 100%;
+    object-fit: cover;
+}
+.card-text{
+    font-style: jakarta; 
+}
+.show-img{
+    height: 30vh;
+}
+.listing-container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.listing-card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: #fff;
+}
+
+.listing-img {
+    height: 450px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.listing-header {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.listing-text {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.list-group-item {
+    font-size: 1rem;
+    padding: 15px;
+    border: none;
+    color: #333;
+}
+
+.list-group-item strong {
+    color: #000;
+}
+
+.card-footer {
+    background-color: #f9f9f9;
+    border-top: 1px solid #eaeaea;
+}
+
+.btn-primary {
+    background-color: #5a67d8;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #434cbd;
+}
+
+.btn-danger {
+    background-color: #e53e3e;
+    border: none;
+}
+
+.btn-danger:hover {
+    background-color: #c53030;
+}
