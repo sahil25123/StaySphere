@@ -38,7 +38,7 @@ app.get("/listings",  async (req,res) => {
       const allListing= await Listing.find({})
       res.render("listings/index.ejs", {listings: allListing})
     })
-
+// new route
 app.get("/listings/new", (req,res)=>{
     res.render("listings/new.ejs")
         
