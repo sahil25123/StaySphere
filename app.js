@@ -7,6 +7,10 @@ const methodOverride = require('method-override');
 const ejsMate= require('ejs-mate');
 const wrapAsync = require('./utils/wrapAsync.js');
 const ExpressError= require('./utils/ExpressError.js');
+const cors = require('cors');
+const joi= require('joi');
+const {listingSchema}= require('./schema.js');
+
 
 
  
@@ -26,7 +30,17 @@ app.use(express.urlencoded({extended: true}));
 app.use(methodOverride('_method'));
 app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors());
 
+const validateListing = (req, res, next) => {
+    const { error } = listingSchema.validate(req.body);
+    if (error) {
+        const message = error.details.map(el => el.message).join(',');
+        throw new ExpressError(message, 400);
+    }
+    next();
+};
+//app.use(validateListing);
  
 
 
@@ -90,7 +104,7 @@ app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
 //update route
 app.put("/listings/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    let { title, description, image, price, location, category } = req.body;
+    let { title, description, image, price, location, country } = req.body;
 
     // Find the existing listing
     const existingListing = await Listing.findById(id);
@@ -110,7 +124,7 @@ app.put("/listings/:id", wrapAsync(async (req, res) => {
                 : existingListing.image, // Retain existing image object
             price,
             location,
-            category,
+            country,
         },
         { new: true } // Return the updated document
     );
