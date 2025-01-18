@@ -137,18 +137,18 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
     res.redirect("/listings");
     }));  
 
-// 404 route
-// app.all("*", (req, res, next) => {
-//     next(new ExpressError("Page Not Found", 404));
-// });
+//404 route
+app.all("*", (req, res, next) => {
+    next(new ExpressError("Page Not Found", 404));
+});
 
 
-// Error handling middleware
-// app.use((err, req, res, next) => {
-//     let {statusCode=500, message="Something went wrong"} = err; 
-//     res.render("error.ejs", {err});
-//     //res.status(statusCode).send(message);
-// })
+//Error handling middleware
+app.use((err, req, res, next) => {
+    let {statusCode=500, message="Something went wrong"} = err; 
+    res.render("error.ejs", {err});
+    //res.status(statusCode).send(message);
+})
 
 // Start the server
 app.listen(port, () => {
