@@ -7,10 +7,19 @@
                 <i class="bi bi-exclamation-triangle text-danger display-3"></i>
             </div>
             <!-- Error Message -->
-            <h1 class="text-danger mb-3">Oops! Something went wrong.</h1>
+            <h1 class="text-danger mb-3">Oops! <%= err.statusCode || 500 %> Error</h1>
             <p class="text-muted mb-4">
-                We encountered an error while processing your request. Please try again later or contact support if the problem persists.
+                <%= err.message || "We encountered an error while processing your request. Please try again later." %>
             </p>
+
+            <!-- Error Stack (Development Only) -->
+            <% if (process.env.NODE_ENV === 'development') { %>
+                <div class="alert alert-warning text-start mt-4">
+                    <h5>Debug Info:</h5>
+                    <pre><code><%= err.stack %></code></pre>
+                </div>
+            <% } %>
+
             <!-- Actions -->
             <div>
                 <a href="/listings" class="btn btn-primary me-2">

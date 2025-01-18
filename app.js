@@ -10,10 +10,7 @@ const ExpressError= require('./utils/ExpressError.js');
 const cors = require('cors');
 const joi= require('joi');
 const {listingSchema}= require('./schema.js');
-
-
-
- 
+const Reviews = require('./models/review.js');
 
 const port = 3001; 
 // Connect to MongoDB
@@ -88,7 +85,7 @@ app.post("/listings",wrapAsync(async (req, res) => {
 // show route
 app.get("/listings/:id", wrapAsync(async (req, res) => {
     let {id}= req.params;
-    const listing= await Listing.findById(id);
+    const listing= await Listing.findById(id).populate('reviews');
     res.render("listings/show.ejs", {listing}) 
 }));
 
@@ -141,19 +138,32 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
     }));  
 
 // 404 route
-app.all("*", (req, res, next) => {
-    next(new ExpressError("Page Not Found", 404));
-});
+// app.all("*", (req, res, next) => {
+//     next(new ExpressError("Page Not Found", 404));
+// });
 
 
 // Error handling middleware
-app.use((err, req, res, next) => {
-    let {statusCode=500, message="Something went wrong"} = err; 
-    res.render("error.ejs", {err});
-    //res.status(statusCode).send(message);
-})
+// app.use((err, req, res, next) => {
+//     let {statusCode=500, message="Something went wrong"} = err; 
+//     res.render("error.ejs", {err});
+//     //res.status(statusCode).send(message);
+// })
 
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
     });
+
+// Reviews route
+app.post("/listings/:id/reviews", wrapAsync(async (req, res) => {
+     let listing =await Listing.findById(req.params.id)
+     let review = new Reviews(req.body.review);  
+     listing.reviews.push(review);
+     await listing.save();
+     await review.save();
+     res.redirect(`/listings/${listing._id}`);
+     
+     
+}));
+

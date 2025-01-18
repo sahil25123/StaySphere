@@ -1,38 +1,87 @@
 <% layout("/layouts/boillerplate") %>
 <body class="bg-light">
     <div class="container py-5">
+        <!-- Listing Container -->
         <div class="listing-container">
-            <!-- Listing Details Card -->
-            <div class="card listing-card">
+            <div class="card listing-card shadow-lg border-0 overflow-hidden">
                 <!-- Image Section -->
-                <img src="<%= listing.image.url %>" alt="Listing Image" class="card-img-top listing-img">
+                <img src="<%= listing.image.url %>" alt="Listing Image" class="card-img-top listing-img rounded-top" style="height: 400px; object-fit: cover;">
 
                 <!-- Details Section -->
                 <div class="card-body">
-                    <h1 class="listing-header"><%= listing.title %></h1>
-                    <p class="listing-text mb-4"><%= listing.description %></p>
+                    <h1 class="text-black mb-3 fw-bold black  "><%= listing.title %></h1>
+                    <p class="text-muted mb-4" style="font-size: 1.2rem; line-height: 1.6;"><%= listing.description %></p>
 
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">
-                            <strong>Price:</strong> ₹<%= listing.price.toLocaleString("en-IN") %>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Price:</strong>
+                            <span>₹<%= listing.price.toLocaleString("en-IN") %></span>
                         </li>
-                        <li class="list-group-item">
-                            <strong>Location:</strong> <%= listing.location %>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Location:</strong>
+                            <span><%= listing.location %></span>
                         </li>
-                        <li class="list-group-item">
-                            <strong>Country:</strong> <%= listing.country %>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <strong>Country:</strong>
+                            <span><%= listing.country %></span>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Footer with Actions -->
-                <div class="card-footer d-flex justify-content-between align-items-center">
+                <div class="card-footer bg-white d-flex justify-content-between align-items-center">
                     <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary px-4 py-2">Edit Listing</a>
                     <form method="post" action="/listings/<%= listing._id %>?_method=DELETE" class="mb-0">
                         <button type="submit" class="btn btn-danger px-4 py-2">Delete Listing</button>
                     </form>
                 </div>
-            </div>
+
+                <!-- Review Section -->
+                <div class="card-body bg-light border-top">
+                    <h4 class="text-center mb-4 text-secondary fw-bold">Leave a Review</h4>
+                    <form method="post" action="/listings/<%= listing._id %>/reviews" >
+                        <!-- Rating Slider -->
+                        <div class="mb-4 text-center">
+                            <label for="rating" class="form-label text-muted">Rating</label>
+                            <input type="range" class="form-range" id="rating" name="review[rating]" min="1" max="5" step="1" oninput="this.nextElementSibling.value = this.value" value="3" required>
+                            <output class="fs-5 fw-bold text-primary mt-1">3</output>
+
+                        </div>
+
+                        <!-- Review Textarea -->
+                        <div class="mb-3">
+                            <label for="review" class="form-label text-muted">Your Review</label>
+                            <textarea class="form-control" id="review" name="review[comment]" rows="4" placeholder="Write your review here..." required></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-outline-dark">Submit</button>
+                        </div>
+                    </form>
+                </div>
+                <hr>
+                <!-- Reviews Section -->
+                <h4>All Reviews</h4>
+                <p><%= listing.reviews.length %> reviews</p>
+                
+                <div class="row">
+                  <% for (review of listing.reviews) { %>
+                    <div class="col-md-4 mb-4">
+                      <div class="card shadow-sm">
+                        <div class="card-body">
+                          <!-- Review Comment -->
+                          <p class="card-text"><%= review.comment %></p>
+                          
+                          <!-- Rating Display -->
+                          <p class="fw-bold">Rating: <%= review.rating %> stars</p>
+                        </div>
+                      </div>
+                    </div>
+                  <% } %>
+                </div>
+            </div>      
         </div>
     </div>
-</body>
+
+ 
