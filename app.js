@@ -137,6 +137,24 @@ app.delete("/listings/:id", wrapAsync(async (req, res) => {
     res.redirect("/listings");
     }));  
 
+    // Reviews route
+app.post("/listings/:id/reviews", wrapAsync(async (req, res) => {
+    let listing = await Listing.findById(req.params.id);
+    if (!listing) {
+        throw new ExpressError("Listing not found", 404);
+    }
+    // Validate review data
+    if (!req.body.review || !req.body.review.comment ) {
+        throw new ExpressError("Invalid review data", 400);
+    }
+    let review = new Reviews(req.body.review);  
+    listing.reviews.push(review);
+    await listing.save();
+    await review.save();
+    res.redirect(`/listings/${listing._id}`);
+}));
+
+
 //404 route
 app.all("*", (req, res, next) => {
     next(new ExpressError("Page Not Found", 404));
@@ -155,15 +173,5 @@ app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
     });
 
-// Reviews route
-app.post("/listings/:id/reviews", wrapAsync(async (req, res) => {
-     let listing =await Listing.findById(req.params.id)
-     let review = new Reviews(req.body.review);  
-     listing.reviews.push(review);
-     await listing.save();
-     await review.save();
-     res.redirect(`/listings/${listing._id}`);
-     
-     
-}));
+
 
