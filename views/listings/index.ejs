@@ -14,7 +14,7 @@
                 <div class="card-body">
                   <h5 class="card-title text-dark font-weight-bold"><%= listing.title %></h5>
                   <p class="card-text text-muted" style="font-size: 14px;"><%= listing.description %></p>
-                  <h6 class="text-dark">₹<%= listing.price.toLocaleString("en-IN") %></h6>
+                  <h6 class="text-dark">₹<%= listing.price.toLocaleString("en-IN") %> per night</h6>
                   <a href="/listings/<%= listing.id %>" class="btn btn-primary w-100" style="border-radius: 20px; font-weight: bold;">View Details</a>
                 </div>
               </div>

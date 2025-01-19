@@ -4,13 +4,12 @@ const mongoose = require('mongoose');
 const Listing = require('./models/listing.js');
 const path = require('path');
 const methodOverride = require('method-override');
-const ejsMate= require('ejs-mate');
-const wrapAsync = require('./utils/wrapAsync.js');
+const ejsMate= require('ejs-mate'); 
 const ExpressError= require('./utils/ExpressError.js');
 const cors = require('cors');
 const joi= require('joi');
-const {listingSchema}= require('./schema.js');
-const Reviews = require('./models/review.js');
+const listingRoutes = require('./routes/listings.js'); 
+const reviewsRoutes = require('./routes/reviews.js');
 
 const port = 3001; 
 // Connect to MongoDB
@@ -29,130 +28,25 @@ app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
-const validateListing = (req, res, next) => {
-    const { error } = listingSchema.validate(req.body);
-    if (error) {
-        const message = error.details.map(el => el.message).join(',');
-        throw new ExpressError(message, 400);
+
+// Route to render the home page with featured listings
+// Route to render the home page with featured listings
+app.get("/", async (req, res) => {
+    try {
+        // Fetch the first 6 featured listings from the database
+        const featuredListings = await Listing.find().limit(6);
+
+        // Render the page with the fetched listings
+        res.render("home", { featuredListings });
+    } catch (error) {
+        console.error("Error fetching listings:", error);
+        res.status(500).send("Something went wrong while fetching the listings.");
     }
-    next();
-};
-//app.use(validateListing);
- 
-
-
-app.get('/', (req, res) => {
-    res.send('Hello World');
-    }
-)
-
-//index route
-app.get("/listings", wrapAsync( async (req,res) => {
-      const allListing= await Listing.find({})
-      res.render("listings/index.ejs", {listings: allListing})
-    }));
-
-// new route
-app.get("/listings/new", (req,res)=>{
-    res.render("listings/new.ejs")
-        
 });
 
-//create route
-app.post("/listings",wrapAsync(async (req, res) => {
 
-    let { title, description, image, price, location, country } = req.body;
-
-    // Create the listing object with the image properly formatted
-    const listing = new Listing({
-        title,
-        description,
-        image: {
-            filename: "listingimage", // Default filename or any placeholder value
-            url: image, // The URL entered by the user
-        },
-        price,
-        location,
-        country,
-    });
-
-    await listing.save();
-    res.redirect(`/listings/${listing._id}`);
-        
-}));
-
-    
-// show route
-app.get("/listings/:id", wrapAsync(async (req, res) => {
-    let {id}= req.params;
-    const listing= await Listing.findById(id).populate('reviews');
-    res.render("listings/show.ejs", {listing}) 
-}));
-
-//edit route
-app.get("/listings/:id/edit", wrapAsync(async (req, res) => {
-    let {id}= req.params;
-    const listing= await Listing.findById(id);
-
-    res.render("listings/edit.ejs", {listing})
-
-}));
-
-//update route
-app.put("/listings/:id", wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let { title, description, image, price, location, country } = req.body;
-
-    // Find the existing listing
-    const existingListing = await Listing.findById(id);
-
-    if (!existingListing) {
-        return res.status(404).send("Listing not found");
-    }
-
-    // Update the listing and retain the existing image if not provided
-    const listing = await Listing.findByIdAndUpdate(
-        id,
-        {
-            title,
-            description,
-            image: image
-                ? { filename: existingListing.image.filename, url: image } // Update URL, retain filename
-                : existingListing.image, // Retain existing image object
-            price,
-            location,
-            country,
-        },
-        { new: true } // Return the updated document
-    );
-
-    res.redirect(`/listings/${listing._id}`);
-}));
-
-
-//delete route
-app.delete("/listings/:id", wrapAsync(async (req, res) => {
-    let {id}= req.params;
-    await Listing.findByIdAndDelete(id);
-    res.redirect("/listings");
-    }));  
-
-    // Reviews route
-app.post("/listings/:id/reviews", wrapAsync(async (req, res) => {
-    let listing = await Listing.findById(req.params.id);
-    if (!listing) {
-        throw new ExpressError("Listing not found", 404);
-    }
-    // Validate review data
-    if (!req.body.review || !req.body.review.comment ) {
-        throw new ExpressError("Invalid review data", 400);
-    }
-    let review = new Reviews(req.body.review);  
-    listing.reviews.push(review);
-    await listing.save();
-    await review.save();
-    res.redirect(`/listings/${listing._id}`);
-}));
+app.use('/listings', listingRoutes);
+app.use("/listings/:id/reviews",reviewsRoutes);
 
 
 //404 route
@@ -160,14 +54,12 @@ app.all("*", (req, res, next) => {
     next(new ExpressError("Page Not Found", 404));
 });
 
-
 //Error handling middleware
 app.use((err, req, res, next) => {
     let {statusCode=500, message="Something went wrong"} = err; 
     res.render("error.ejs", {err});
     //res.status(statusCode).send(message);
 })
-
 // Start the server
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

@@ -1,0 +1,183 @@
+<% layout("/layouts/boillerplate") %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StaySphere - Discover Your Dream Stay</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/styles.css">
+
+<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+</head>
+<body>
+    <!-- Hero Section with Full-Screen Slideshow -->
+    <section class="hero">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide" style="background-image: url('/images/mountain.png');"></div>
+                <div class="swiper-slide" style="background-image: url('/images/beach.png');"></div>
+                <div class="swiper-slide" style="background-image: url('/images/city.avif');"></div>
+                <div class="swiper-slide" style="background-image: url('/images/cabin.jpg');"></div>
+                <div class="swiper-slide" style="background-image: url('/images/tropical.jpg');"></div>
+            </div>
+            <div class="swiper-pagination"></div>
+            <div class="swiper-button-prev"></div>
+            <div class="swiper-button-next"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Discover Your Dream Stay with StaySphere</h1>
+            <p>Find unique accommodations and unforgettable experiences</p>
+            <a href="/listings" class="btn btn-primary btn-lg">Explore Now</a>
+        </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section py-5">
+        <div class="container">
+            <form class="row g-3">
+                <div class="col-md-3">
+                    <input type="text" class="form-control" placeholder="Where are you going?" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="date" class="form-control" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="date" class="form-control" required>
+                </div>
+                <div class="col-md-2">
+                    <input type="number" class="form-control" placeholder="Guests" min="1" required>
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary w-100">Search</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+<!-- Featured Listings Section -->
+<section class="featured-listings py-5 bg-light">
+    <div class="container">
+        <h2 class="section-title text-center mb-5">Featured Listings</h2>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            <% featuredListings.forEach(listing => { %>
+                <div class="col">
+                    <div class="card h-100 listing-card shadow-sm">
+                        <img src="<%= listing.image.url %>" class="card-img-top listing-img" alt="<%= listing.title %>">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title listing-title"><%= listing.title %></h5>
+                            <p class="card-text listing-location"><i class="fas fa-map-marker-alt me-2"></i><%= listing.location %></p>
+                            <div class="listing-rating mb-2">
+                                <% for (let i = 0; i < Math.floor(listing.rating); i++) { %>
+                                    <i class="fas fa-star"></i>
+                                <% } %>
+                                <% if (listing.rating % 1 !== 0) { %>
+                                    <i class="fas fa-star-half-alt"></i>
+                                <% } %>
+                                <span class="rating-number"><%= listing.rating %></span>
+                            </div>
+                            <p class="card-text listing-price mt-auto">₹<%= listing.price.toLocaleString() %> <span class="per-night">per night</span></p>
+                        </div>
+                        <a href="/listings/<%= listing._id %>" class="card-link-overlay" aria-label="View <%= listing.title %>"></a>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+        <div class="text-center mt-5">
+            <a href="/listings" class="btn btn-primary btn-lg px-4 py-2">View All Listings</a>
+        </div>
+    </div>
+</section>
+
+
+
+
+    <!-- How It Works Section -->
+    <section class="how-it-works py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-4">How It Works</h2>
+            <div class="row">
+                <div class="col-md-4 text-center mb-4">
+                    <i class="fas fa-search fa-3x mb-3 text-primary"></i>
+                    <h3>Search for Properties</h3>
+                    <p>Find the perfect stay tailored to your needs.</p>
+                </div>
+                <div class="col-md-4 text-center mb-4">
+                    <i class="fas fa-calendar-check fa-3x mb-3 text-primary"></i>
+                    <h3>Book Your Stay</h3>
+                    <p>Secure your booking instantly with confidence.</p>
+                </div>
+                <div class="col-md-4 text-center mb-4">
+                    <i class="fas fa-suitcase fa-3x mb-3 text-primary"></i>
+                    <h3>Enjoy Your Vacation</h3>
+                    <p>Experience hassle-free accommodations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials py-5">
+        <div class="container">
+            <h2 class="text-center mb-4">What Our Guests Say About Us</h2>
+            <div class="row">
+                <% const testimonials = [
+                    { name: 'John Doe', location: 'New York, USA', comment: 'The best vacation rental experience ever!', rating: 5, image: '/images/user1.jpg' },
+                    { name: 'Jane Smith', location: 'London, UK', comment: 'Absolutely loved our stay. Will definitely use StaySphere again!', rating: 5, image: '/images/user2.jpg' },
+                    { name: 'Mike Johnson', location: 'Sydney, Australia', comment: 'Fantastic properties and excellent customer service.', rating: 4, image: '/images/user3.jpg' }
+                ] %>
+                <% testimonials.forEach(testimonial => { %>
+                    <div class="col-md-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-body">
+                                <p class="card-text">"<%= testimonial.comment %>"</p>
+                                <div class="d-flex align-items-center mt-3">
+                                    <img src="<%= testimonial.image %>" alt="<%= testimonial.name %>" class="rounded-circle me-3" width="50" height="50">
+                                    <div>
+                                        <h5 class="card-title mb-0"><%= testimonial.name %></h5>
+                                        <p class="card-text"><small class="text-muted"><%= testimonial.location %></small></p>
+                                        <p class="card-text">
+                                            <% for (let i = 0; i < testimonial.rating; i++) { %>
+                                                <i class="fas fa-star text-warning"></i>
+                                            <% } %>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    </section>
+
+    <!-- Host CTA Section -->
+    <section class="host-cta py-5 bg-primary text-white">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-md-6 mb-4 mb-md-0">
+                <h2>Turn Your Space Into Income with StaySphere</h2>
+                <p>Join thousands of hosts earning from their properties today.</p>
+                <ul class="list-unstyled mb-4">
+                    <li><i class="fas fa-check me-2"></i> Earn extra income</li>
+                    <li><i class="fas fa-check me-2"></i> Reach global travelers</li>
+                    <li><i class="fas fa-check me-2"></i> Hassle-free management tools</li>
+                </ul>
+                <a href="#" class="btn btn-light btn-lg">Start Hosting</a>
+            </div>
+            <div class="col-md-6 text-center">
+                <img src="/images/happy-host.jpg" alt="Happy host showing property" class="img-fluid rounded shadow-sm max-width-100">
+            </div>
+        </div>
+    </div>
+</section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="/js/main.js"></script>
+   
+</body>
+</html>
+
