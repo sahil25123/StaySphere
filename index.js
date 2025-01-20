@@ -16,6 +16,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user.js');
 const userRoutes = require('./routes/user.js');
+const {isLoggedIn}=require("./middleware.js");
 
 
 
@@ -60,10 +61,9 @@ passport.deserializeUser(User.deserializeUser());
 app.use((req, res, next) => {
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
+    res.locals.currUser = req.user;
     next();
 });
-// Routes
-
 
 // Route to render the home page with featured listings
 app.get("/", async (req, res) => {
@@ -103,3 +103,4 @@ app.listen(port, () => {
 
 
 
+ 

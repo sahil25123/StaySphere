@@ -7,6 +7,7 @@
           <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>" style="height: 400px; object-fit: cover;">
           <div class="card-body p-4">
             <h1 class="card-title mb-3"><%= listing.title %></h1>
+            <p class="card-text"><i> Owned by:<%= listing.owner.username %></i></p>
             <p class="card-text text-muted mb-4"><%= listing.description %></p>
             <div class="d-flex justify-content-between align-items-center mb-3">
               <span class="badge custom-badge fs-5">₹<%= listing.price.toLocaleString("en-IN") %> <small>per night</small></span>
@@ -65,7 +66,7 @@
         </div>
       </div>
       
-
+        <% if( currUser && currUser._id.equals(listing.owner._id)) { %>
         <div class="card shadow-lg border-0">
           <div class="card-body p-4">
             <h3 class="card-title mb-4">Listing Actions</h3>
@@ -77,6 +78,9 @@
             </div>
           </div>
         </div>
+        <%}%>
+
+
       </div>
     </div>
   </div>

@@ -2,9 +2,9 @@ const express=require('express');
 const router=express.Router({mergeParams:true});
 const wrapAsync = require('../utils/wrapAsync.js');
 const Reviews = require('../models/review.js');
-const {reviewSchema}= require("../schema.js")
 const ExpressError= require('../utils/ExpressError.js');
 const Listing = require('../models/listing.js');
+const { validateReview } = require('../middleware.js');
 
 router.post("/", wrapAsync(async (req, res) => {
     let listing = await Listing.findById(req.params.id);

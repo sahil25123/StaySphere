@@ -1,19 +1,11 @@
 const express=require('express');
 const router=express.Router();
 const wrapAsync = require('../utils/wrapAsync.js');
-const ExpressError= require('../utils/ExpressError.js');
-const {listingSchema}= require('../schema.js');
 const Listing = require('../models/listing.js');
+const { isLoggedIn, isOwner, validateListing} = require('../middleware.js');
 
 
-const validateListing = (req, res, next) => {
-  const { error } = listingSchema.validate(req.body);
-  if (error) {
-      const message = error.details.map(el => el.message).join(',');
-      throw new ExpressError(message, 400);
-  }
-  next();
-};
+
 //app.use(validateListing);
 
 
@@ -24,14 +16,13 @@ router.get("/", wrapAsync( async (req,res) => {
   }));
 
 // new route
-router.get("/new", (req,res)=>{
+router.get("/new",isLoggedIn, (req,res)=>{
   res.render("listings/new.ejs")
       
 });
 
 //create route
-router.post("/",wrapAsync(async (req, res) => {
-
+router.post("/",isLoggedIn,wrapAsync(async (req, res) => { 
   let { title, description, image, price, location, country } = req.body;
 
   // Create the listing object with the image properly formatted
@@ -46,6 +37,7 @@ router.post("/",wrapAsync(async (req, res) => {
       location,
       country,
   });
+  listing .owner=req.user._id;
 
   await listing.save();
   req.flash('success', 'Successfully made a new listing!');
@@ -57,7 +49,7 @@ router.post("/",wrapAsync(async (req, res) => {
 // show route
 router.get("/:id", wrapAsync(async (req, res) => {
   let {id}= req.params;
-  const listing= await Listing.findById(id).populate('reviews');
+  const listing= await Listing.findById(id).populate('reviews').populate('owner');
   if(!listing){
     req.flash('error', 'Listing you request for does not exist!');
     res.redirect('/listings');
@@ -66,7 +58,7 @@ router.get("/:id", wrapAsync(async (req, res) => {
 }));
 
 //edit route
-router.get("/:id/edit", wrapAsync(async (req, res) => {
+router.get("/:id/edit",isLoggedIn,isOwner, wrapAsync(async (req, res) => {
   let {id}= req.params;
   const listing= await Listing.findById(id);
   if(!listing){
@@ -79,7 +71,7 @@ router.get("/:id/edit", wrapAsync(async (req, res) => {
 }));
 
 //update route
-router.put("/:id", wrapAsync(async (req, res) => {
+router.put("/:id",isLoggedIn,isOwner, wrapAsync(async (req, res) => {
   let { id } = req.params;
   let { title, description, image, price, location, country } = req.body;
 
@@ -111,7 +103,7 @@ router.put("/:id", wrapAsync(async (req, res) => {
 
 
 //delete route
-router.delete("/:id", wrapAsync(async (req, res) => {
+router.delete("/:id",isLoggedIn,isOwner, wrapAsync(async (req, res) => {
   let {id}= req.params;
   await Listing.findByIdAndDelete(id);
   req.flash('success', 'Successfully deleted a listing!');
