@@ -1,0 +1,33 @@
+<% if (success.length) { %>
+    <div class="alert alert-success alert-dismissible fade show shadow-lg rounded" role="alert">
+      <div class="d-flex align-items-center">
+        <i class="fas fa-check-circle me-2"></i>
+        <strong><%= success %></strong>
+      </div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+  
+  <% if (error.length) { %>
+    <div class="alert alert-danger alert-dismissible fade show col-6 offset-3 shadow-lg rounded" role="alert">
+      <div class="d-flex align-items-center">
+        <i class="fas fa-exclamation-triangle me-2"></i>
+        <strong><%= error %></strong>
+      </div>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  <% } %>
+    
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const alerts = document.querySelectorAll(".alert");
+      alerts.forEach((alert) => {
+        setTimeout(() => {
+          alert.classList.remove("show");
+          alert.classList.add("fade");
+          setTimeout(() => alert.remove(), 500); // Ensure it’s removed after fading out
+        }, 5000); // 5 seconds timeout
+      });
+    });
+  </script>
+  

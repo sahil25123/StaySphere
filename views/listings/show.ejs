@@ -1,88 +1,84 @@
 <% layout("/layouts/boillerplate") %>
-<body class="bg-light">
-    <div class="container py-5">
-        <!-- Listing Container -->
-        <div class="listing-container">
-            <div class="card listing-card shadow-lg border-0 overflow-hidden">
-                <!-- Image Section -->
-                <img src="<%= listing.image.url %>" alt="Listing Image" class="card-img-top listing-img rounded-top" style="height: 400px; object-fit: cover;">
+<main class="show-listing-page py-5">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="card shadow-lg border-0 mb-4">
+          <img src="<%= listing.image.url %>" class="card-img-top" alt="<%= listing.title %>" style="height: 400px; object-fit: cover;">
+          <div class="card-body p-4">
+            <h1 class="card-title mb-3"><%= listing.title %></h1>
+            <p class="card-text text-muted mb-4"><%= listing.description %></p>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="badge custom-badge fs-5">₹<%= listing.price.toLocaleString("en-IN") %> <small>per night</small></span>
+              <span class="text-muted"><i class="fas fa-map-marker-alt me-2"></i><%= listing.location %>, <%= listing.country %></span>
+            </div>
+          </div>
+        </div>
 
-                <!-- Details Section -->
-                <div class="card-body">
-                    <h1 class="text-black mb-3 fw-bold black  "><%= listing.title %></h1>
-                    <p class="text-muted mb-4" style="font-size: 1.2rem; line-height: 1.6;"><%= listing.description %></p>
-
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between">
-                            <strong>Price:</strong>
-                            <span>₹<%= listing.price.toLocaleString("en-IN") %></span>
-                            
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <strong>Location:</strong>
-                            <span><%= listing.location %></span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <strong>Country:</strong>
-                            <span><%= listing.country %></span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Footer with Actions -->
-                <div class="card-footer bg-white d-flex justify-content-between align-items-center">
-                    <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary px-4 py-2">Edit Listing</a>
-                    <form method="post" action="/listings/<%= listing._id %>?_method=DELETE" class="mb-0">
-                        <button type="submit" class="btn btn-danger px-4 py-2">Delete Listing</button>
-                    </form>
-                </div>
-
-                <!-- Review Section -->
-                <div class="card-body bg-light border-top">
-                    <h4 class="text-center mb-4 text-secondary fw-bold">Leave a Review</h4>
-                    <form method="post" action="/listings/<%= listing._id %>/reviews" >
-                        <!-- Rating Slider -->
-                        <div class="mb-4 text-center">
-                            <label for="rating" class="form-label text-muted">Rating</label>
-                            <input type="range" class="form-range" id="rating" name="review[rating]" min="1" max="5" step="1" oninput="this.nextElementSibling.value = this.value" value="3" required>
-                            <output class="fs-5 fw-bold text-primary mt-1">3</output>
-
-                        </div>
-
-                        <!-- Review Textarea -->
-                        <div class="mb-3">
-                            <label for="review" class="form-label text-muted">Your Review</label>
-                            <textarea class="form-control" id="review" name="review[comment]" rows="4" placeholder="Write your review here..." required></textarea>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="text-center">
-                            <button type="submit" class="btn btn-outline-dark">Submit</button>
-                        </div>
-                    </form>
-                </div>
-                <hr>
-                <!-- Reviews Section -->
-                <h4>All Reviews</h4>
-                <p><%= listing.reviews.length %> reviews</p>
-                
-                <div class="row">
-                  <% for (review of listing.reviews) { %>
-                    <div class="col-md-4 mb-4">
-                      <div class="card shadow-sm">
-                        <div class="card-body">
-                          <!-- Review Comment -->
-                          <p class="card-text"><%= review.comment %></p>
-                          
-                          <!-- Rating Display -->
-                          <p class="fw-bold">Rating: <%= review.rating %> stars</p>
-                        </div>
-                      </div>
+        <div class="card shadow-lg border-0 mb-4">
+          <div class="card-body p-4">
+            <h2 class="card-title mb-4">Reviews</h2>
+            <% if (listing.reviews.length === 0) { %>
+              <p class="text-muted">No reviews yet. Be the first to leave a review!</p>
+            <% } else { %>
+              <% for (let review of listing.reviews) { %>
+                <div class="mb-4 pb-4 border-bottom">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div>
+                      <% for (let i = 0; i < 5; i++) { %>
+                        <i class="fas fa-star <%= i < review.rating ? 'text-warning' : 'text-muted' %>"></i>
+                      <% } %>
                     </div>
+                    <small class="text-muted">Posted on <%= review.createdAt.toLocaleDateString() %></small>
+                  </div>
+                  <p class="mb-0"><%= review.comment %></p>
+                </div>
+              <% } %>
+            <% } %>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-4">
+        <div class="card shadow-lg border-0 mb-4">
+          <div class="card-body p-4">
+            <h3 class="card-title mb-4">Leave a Review</h3>
+            <form action="/listings/<%= listing._id %>/reviews" method="POST" class="needs-validation" novalidate>
+              <div class="mb-3">
+                <label for="rating" class="form-label">Rating</label>
+                <div class="star-rating">
+                  <% for (let i = 5; i >= 1; i--) { %>
+                    <input type="radio" id="star-<%= i %>" name="review[rating]" value="<%= i %>" required>
+                    <label for="star-<%= i %>"><i class="fas fa-star"></i></label>
                   <% } %>
                 </div>
-            </div>      
+              </div>
+              <div class="mb-3">
+                <label for="comment" class="form-label">Your Review</label>
+                <textarea class="form-control" id="comment" name="review[comment]" rows="4" required></textarea>
+              </div>
+              <div class="d-grid">
+                <button type="submit" class="btn btn-primary">Submit Review</button>
+              </div>
+            </form>
+          </div>
         </div>
-    </div>
+      </div>
+      
 
- 
+        <div class="card shadow-lg border-0">
+          <div class="card-body p-4">
+            <h3 class="card-title mb-4">Listing Actions</h3>
+            <div class="d-grid gap-2">
+              <a href="/listings/<%= listing._id %>/edit" class="btn btn-dark">Edit Listing</a>
+              <form action="/listings/<%= listing._id %>?_method=DELETE" method="POST">
+                <button type="submit" class="btn btn-danger w-100">Delete Listing</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+

@@ -1,37 +1,28 @@
 <% layout("/layouts/boillerplate") %>
-<body>
-    <h3>All Listing </h3>
-    <!-- <form method="get", action ="/listings/new">
-        <button type="submit">Create New Listing</button>
-    </form> -->
-    
-    <div class="row">
-        <% for(let listing of listings) { %>
-          <div class="col-md-4 mb-4">
-            <a href="/listings/<%= listing.id %>" style="text-decoration: none; color: black;">
-              <div class="card shadow-lg rounded-lg" style="width: 100%; transition: transform 0.3s ease-in-out;">
-                <img src="<%= listing.image.url %>" class="card-img-top rounded-top" alt="listing-Image" style="height: 250px; object-fit: cover;">
-                <div class="card-body">
-                  <h5 class="card-title text-dark font-weight-bold"><%= listing.title %></h5>
-                  <p class="card-text text-muted" style="font-size: 14px;"><%= listing.description %></p>
-                  <h6 class="text-dark">₹<%= listing.price.toLocaleString("en-IN") %> per night</h6>
-                  <a href="/listings/<%= listing.id %>" class="btn btn-primary w-100" style="border-radius: 20px; font-weight: bold;">View Details</a>
-                </div>
+<main class="listings-page py-5">
+  <div class="container">
+    <header class="mb-5">
+      <h1 class="text-center display-4 fw-bold text-primary">Discover Your Perfect Stay</h1>
+      <p class="text-center text-muted lead">Explore our curated collection of unique accommodations</p>
+    </header>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+      <% for(let listing of listings) { %>
+        <div class="col">
+          <div class="card h-100 listing-card shadow-sm">
+            <img src="<%= listing.image.url %>" class="card-img-top listing-img" alt="<%= listing.title %>">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title listing-title"><%= listing.title %></h5>
+              <p class="card-text listing-description text-muted"><%= listing.description.substring(0, 100) %>...</p>
+              <div class="listing-details mt-auto">
+                <p class="listing-price mb-2">₹<%= listing.price.toLocaleString("en-IN") %> <span class="per-night">per night</span></p>
+                <a href="/listings/<%= listing.id %>" class="btn btn-primary w-100">View Details</a>
               </div>
-            </a>
+            </div>
           </div>
-        <% } %>
-      </div>
-      
-    
-    <!-- <ul>
-        <% for(let listing of listings){%>
-            <li><a href="/listings/<%= listing.id%>"><%=listing.title%></a></a></li>
-        <%}%>
-    
-    </ul> -->
+        </div>
+      <% } %>
+    </div>
+  </div>
+</main>
 
-    
-</body>
-
-    

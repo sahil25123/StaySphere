@@ -10,6 +10,8 @@ const cors = require('cors');
 const joi= require('joi');
 const listingRoutes = require('./routes/listings.js'); 
 const reviewsRoutes = require('./routes/reviews.js');
+const session = require('express-session');
+const flash = require('connect-flash'); 
 
 const port = 3001; 
 // Connect to MongoDB
@@ -28,8 +30,26 @@ app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
+const sessionConfig = {
+    secret:"mysecretcodewithsahil",
+    resave: false,
+    saveUninitialized: true,
+    Cookie: {
+        httpOnly: true,
+        expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+        maxAge: 1000 * 60 * 60 * 24 * 7
+    }};
 
-// Route to render the home page with featured listings
+app.use(session(sessionConfig));
+app.use(flash());
+
+// Middleware to set flash messages
+app.use((req, res, next) => {
+    res.locals.success = req.flash("success");
+    res.locals.error = req.flash("error");
+    next();
+});
+
 // Route to render the home page with featured listings
 app.get("/", async (req, res) => {
     try {

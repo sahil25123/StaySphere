@@ -1,49 +1,48 @@
 <% layout("/layouts/boillerplate") %>
-<body class="bg-light">
-    <div class="container py-5">
-        <h1 class="text-center mb-4">Edit Listing</h1>
-        <form method="post" action="/listings/<%= listing._id %>?_method=PUT" class="bg-white p-4 rounded shadow-sm needs-validation" novalidate>
-            <!-- Title -->
-            <div class="mb-3">
+<main class="edit-listing-page py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8">
+        <div class="card shadow-lg border-0">
+          <div class="card-body p-5">
+            <h1 class="card-title text-center mb-4">Edit Your Listing</h1>
+            <form method="post" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate>
+              <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
-                <input type="text" name="title" id="title" class="form-control" value="<%= listing.title %>" required>
-            </div>
-
-            <!-- Description -->
-            <div class="mb-3">
-                <label for="description" class="form-label ">Description</label>
-                <textarea name="description" id="description" class="form-control" rows="4" required><%= listing.description %></textarea>
-            </div>
-
-            <!-- Image URL -->
-            <div class="mb-3">
+                <input type="text" class="form-control" id="title" name="title" value="<%= listing.title %>" required>
+              </div>
+              <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="4" required><%= listing.description %></textarea>
+              </div>
+              <div class="mb-3">
                 <label for="image" class="form-label">Image URL</label>
-                <input type="url" name="image" id="image" class="form-control" value="<%= listing.image.url %>" required>
+                <input name="image" value="<%= listing.image.url %>" type="url" class="form-control" required>
             </div>
-
-            <!-- Price -->
-            <div class="mb-3">
-                <label for="price" class="form-label">Price</label>
-                <input type="number" name="price" id="price" class="form-control" value="<%= listing.price %>" required>
-            </div>
-
-            <!-- Location -->
-            <div class="mb-3">
+              <div class="mb-3">
+                <label for="price" class="form-label">Price (per night)</label>
+                <div class="input-group">
+                  <span class="input-group-text">₹</span>
+                  <input type="number" class="form-control" id="price" name="price" value="<%= listing.price %>" required min="0">
+                </div>
+              </div>
+              <div class="mb-3">
                 <label for="location" class="form-label">Location</label>
-                <input type="text" name="location" id="location" class="form-control" value="<%= listing.location %>" required>
-            </div>
-
-            <!-- Country -->
-            <div class="mb-3">
+                <input type="text" class="form-control" id="location" name="location" value="<%= listing.location %>" required>
+              </div>
+              <div class="mb-3">
                 <label for="country" class="form-label">Country</label>
-                <input type="text" name="country" id="country" class="form-control" value="<%= listing.country %>" required>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="d-grid">
-                <button type="submit" class="btn btn-primary">Update Listing</button>
-            </div>
-        </form>
+                <input type="text" class="form-control" id="country" name="country" value="<%= listing.country %>" required>
+              </div>
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg">Update Listing</button>
+                <a href="/listings/<%= listing._id %>" class="btn btn-outline-secondary">Cancel</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
-</body>
+  </div>
+</main>
+
