@@ -12,6 +12,12 @@ const listingRoutes = require('./routes/listings.js');
 const reviewsRoutes = require('./routes/reviews.js');
 const session = require('express-session');
 const flash = require('connect-flash'); 
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user.js');
+const userRoutes = require('./routes/user.js');
+
+
 
 const port = 3001; 
 // Connect to MongoDB
@@ -42,6 +48,13 @@ const sessionConfig = {
 
 app.use(session(sessionConfig));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session()); // a.k.a. persistent login sessions
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+ 
 
 // Middleware to set flash messages
 app.use((req, res, next) => {
@@ -49,6 +62,8 @@ app.use((req, res, next) => {
     res.locals.error = req.flash("error");
     next();
 });
+// Routes
+
 
 // Route to render the home page with featured listings
 app.get("/", async (req, res) => {
@@ -64,9 +79,10 @@ app.get("/", async (req, res) => {
     }
 });
 
-
 app.use('/listings', listingRoutes);
 app.use("/listings/:id/reviews",reviewsRoutes);
+app.use('/', userRoutes);
+
 
 
 //404 route
