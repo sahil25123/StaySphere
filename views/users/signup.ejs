@@ -1,20 +1,67 @@
 <% layout("/layouts/boillerplate") %>
-<div class="row mt-3">
-    <div class="offset-3 col-6">
-        <h1>Sign Up</h1>
-        <form action="/signup" method="post" class="needs-validation" novalidate>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" name="username" id="username" class="form-control" required>
-                <div class="invalid-feedback">Please enter a username.</div>
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" class="form-control" required>
-                <div class="invalid-feedback">Please enter a email.</div>
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="form-control" required>
-                <div class="invalid-feedback">Please enter a password.</div>
-             </div>
-            <button type="submit" class="btn btn-success">Sign Up</button>
-        </form>
+<div class="row mt-5 justify-content-center">
+    <div class="col-md-6 col-lg-5">
+        <div class="card shadow-lg border-0">
+            <div class="card-body p-5">
+                <h1 class="text-center mb-4">Join StaySphere</h1>
+                <p class="text-center text-muted mb-4">Create an account and start your journey to unforgettable stays!</p>
+                <form action="/signup" method="post" class="needs-validation" novalidate>
+                    <!-- Username Input -->
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input
+                            type="text"
+                            name="username"
+                            id="username"
+                            class="form-control form-control-lg"
+                            placeholder="Choose a username"
+                            required
+                        />
+                        <div class="invalid-feedback">Please enter a username.</div>
+                    </div>
+
+                    <!-- Email Input -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            class="form-control form-control-lg"
+                            placeholder="Enter your email address"
+                            required
+                        />
+                        <div class="invalid-feedback">Please enter a valid email.</div>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div class="mb-4">
+                        <label for="password" class="form-label">Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            class="form-control form-control-lg"
+                            placeholder="Create a strong password"
+                            required
+                        />
+                        <div class="invalid-feedback">Please enter a password.</div>
+                    </div>
+
+                    <!-- Sign Up Button -->
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg">Sign Up</button>
+                    </div>
+                    
+                </form>
+
+                <!-- Login Link -->
+                <div class="mt-4 text-center">
+                    <p class="text-muted">
+                        Already have an account? <a href="/login" class="text-decoration-none">Login here</a>.
+                    </p>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
