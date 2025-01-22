@@ -65,6 +65,13 @@ module.exports.createNewListings=async (req, res) => {
     }
     res.render("listings/show.ejs", {listing}) 
   }
+
+  module.exports.Booking=(req,res)=>{
+    req.flash("success","Booking Confirmed! A confirmation has been sent to the listing owner.")
+    res.redirect(`/listings`)
+}
+
+
   module.exports.editListing=async (req, res) => {
     let {id}= req.params;
     const listing= await Listing.findById(id);

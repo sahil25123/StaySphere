@@ -23,6 +23,7 @@ router.post("/",isLoggedIn,upload.single("image"),wrapAsync(listingController.cr
 // show route
 router.get("/:id", wrapAsync(listingController.showListing));
 
+router.get("/:id/book", isLoggedIn, listingController.Booking);
 //edit route
 router.get("/:id/edit",isLoggedIn,isOwner, wrapAsync(listingController.editListing));
 

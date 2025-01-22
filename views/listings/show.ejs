@@ -85,7 +85,7 @@
         <div class="card shadow-lg border-0 mb-4" >
           <div class="card-body p-4">
             <h3 class="card-title mb-4">Book this place</h3>
-            <form action="/listings/<%= listing._id %>/book" method="POST" class="needs-validation" novalidate>
+            <form action="/listings/<%= listing._id %>/book" method="get" class="needs-validation" novalidate>
               <div class="mb-3">
                 <label for="checkIn" class="form-label">Check-in</label>
                 <input type="date" class="form-control" id="checkIn" name="booking[checkIn]" required>
