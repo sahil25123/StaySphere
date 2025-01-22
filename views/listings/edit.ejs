@@ -6,7 +6,7 @@
         <div class="card shadow-lg border-0">
           <div class="card-body p-5">
             <h1 class="card-title text-center mb-4">Edit Your Listing</h1>
-            <form method="post" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate>
+            <form method="post" action="/listings/<%= listing._id %>?_method=PUT" class="needs-validation" novalidate enctype="multipart/form-data">
               <div class="mb-3">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control" id="title" name="title" value="<%= listing.title %>" required>
@@ -16,8 +16,12 @@
                 <textarea class="form-control" id="description" name="description" rows="4" required><%= listing.description %></textarea>
               </div>
               <div class="mb-3">
-                <label for="image" class="form-label">Image URL</label>
-                <input name="image" value="<%= listing.image.url %>" type="url" class="form-control" required>
+                <h5>Orginal Listing Image</h5>
+                <img  class="img-fluid w-50" src="<%= listing.image.url %>"/>
+              </div>
+              <div class="mb-3">
+                <label for="image" class="form-label">Upload New Image</label>
+                <input name="image" value="<%= listing.image.url %>" type="file" class="form-control" >
             </div>
               <div class="mb-3">
                 <label for="price" class="form-label">Price (per night)</label>

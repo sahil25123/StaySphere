@@ -1,7 +1,5 @@
 const Listing = require('../models/listing.js');
 
-
-
 module.exports.index =async (req,res) => {
     const allListing= await Listing.find({})
     res.render("listings/index.ejs", {listings: allListing})
@@ -12,25 +10,29 @@ module.exports.renderNewForm =(req,res)=>{
 }
 
 module.exports.createNewListings=async (req, res) => { 
-    let { title, description, image, price, location, country } = req.body;
-  
+  let url=req.file.path;
+  let filename=req.file.filename
+    let { title, description, price, location, country } = req.body;
+
     // Create the listing object with the image properly formatted
     const listing = new Listing({
         title,
         description,
         image: {
-            filename: "listingimage", // Default filename or any placeholder value
-            url: image, // The URL entered by the user
+            filename: filename, // Default filename or any placeholder value
+            url: url, // The URL entered by the user
         },
         price,
         location,
         country,
     });
     listing .owner=req.user._id;
+    listing.image= {filename,url};
   
     await listing.save();
     req.flash('success', 'Successfully made a new listing!');
     res.redirect(`/listings/${listing._id}`);
+    //console.log(req.file)
         
   }
   module.exports.showListing=async (req, res) => {
@@ -67,6 +69,8 @@ module.exports.createNewListings=async (req, res) => {
         return res.status(404).send("Listing not found");
     }
   
+    
+    
     // Update the listing and retain the existing image if not provided
     const listing = await Listing.findByIdAndUpdate(
         id,
@@ -82,6 +86,14 @@ module.exports.createNewListings=async (req, res) => {
         },
         { new: true } // Return the updated document
     );
+    if(typeof req.file !== 'undefined'){ 
+      let url=req.file.path;
+      let filename=req.file.filename
+      listing.image= {filename,url}; 
+      await listing.save();
+
+    }
+    
     req.flash('success', 'Successfully updated a listing!');
     res.redirect(`/listings/${listing._id}`);
   }

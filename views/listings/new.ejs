@@ -9,7 +9,7 @@
             <h1 class="card-title text-center mb-4">Create Your Dream Listing</h1>
             <p class="text-muted text-center mb-5">Share your space with travelers from around the world</p>
             
-            <form method="post" action="/listings" class="needs-validation" novalidate>
+            <form method="post" action="/listings" class="needs-validation" novalidate  enctype="multipart/form-data">
               <div class="mb-4">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" name="title" id="title" class="form-control form-control-lg" placeholder="e.g., Cozy Beachfront Villa" required>
@@ -23,8 +23,8 @@
               </div>
 
               <div class="mb-4">
-                <lable for="image" class="form-label">Image</lable>
-                <input name="image" type="url" placeholder="Enter image URL/Link" class="form-control">
+                <lable for="image" class="form-label">Upload Image</lable>
+                <input name="image" type="file" accept="image/*" class="form-control">
             </div>
 
               <div class="row mb-4">
