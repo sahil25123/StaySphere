@@ -1,0 +1,83 @@
+<% layout("/layouts/boillerplate") %>
+<style>
+    .card-img-container {
+  overflow: hidden;
+  height: 250px;
+}
+
+.card-img-container img {
+  transition: transform 0.3s ease;
+  height: 100%; /* Ensure image fills the container */
+    object-fit: cover; /* Crop the image to fit */
+}
+.card-title {
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+
+.card-body {
+    padding: 1rem; /* Adjust padding for compact look */
+  }
+
+  .card-text {
+    font-size: 0.9rem; /* Reduce font size */
+    line-height: 1.4; /* Improve text spacing */
+    margin-bottom: 0.5rem; /* Reduce spacing between elements */
+  }
+
+  .btn-primary {
+    font-size: 0.9rem; /* Adjust button font size */
+    padding: 0.5rem 0.75rem; /* Adjust button padding */
+  }
+  .badge {
+    font-size: 0.75rem; /* Adjust badge size */
+  }
+
+</style>
+<main class="container py-5">
+    <h1 class="mb-4 text-center">Search Results for "<%= query %>"</h1>
+  
+    <% if (listings.length === 0) { %>
+      <div class="text-center py-5">
+        <p class="text-muted fs-4">No listings found matching your search query.</p>
+        <a href="/" class="btn btn-outline-primary mt-3">Go Back to Home</a>
+      </div>
+    <% } else { %>
+      <div class="row g-4">
+        <% listings.forEach(listing => { %>
+          <div class="col-md-6 col-lg-4">
+            <div class="card h-100 shadow-sm border-0">
+              <div class="card-img-container position-relative">
+                <img
+                  src="<%= listing.image.url %>"
+                  class="card-img-top rounded-top"
+                  alt="<%= listing.title %>"
+                />
+                <span
+                  class="badge bg-primary position-absolute top-0 start-0 m-2 py-1 px-2 rounded-pill"
+                >
+                  New
+                </span>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title fw-bold text-truncate">
+                  <%= listing.title %>
+                </h5>
+                <p class="card-text text-muted">
+                  <i class="fas fa-map-marker-alt"></i> <%= listing.location %>
+                </p>
+                <p class="card-text text-truncate small">
+                  <%= listing.description %>
+                </p>
+                <a href="/listings/<%= listing._id %>" class="btn btn-primary w-100">
+                  View Details
+                </a>
+              </div>
+            </div>
+          </div>
+        <% }) %>
+      </div>
+    <% } %>
+  </main>
+  

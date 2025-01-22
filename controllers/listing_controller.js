@@ -9,6 +9,24 @@ module.exports.renderNewForm =(req,res)=>{
     res.render("listings/new.ejs")
 }
 
+module.exports.searchListings =async (req, res) => {
+  const { query } = req.query;
+  try {
+    const listings = await Listing.find({
+      $or: [
+        { title: { $regex: query, $options: 'i' } },
+        { description: { $regex: query, $options: 'i' } },
+        { location: { $regex: query, $options: 'i' } }
+      ]
+    });
+    res.render('listings/search', { listings, query });
+  } catch (err) {
+    console.error(err);
+    res.redirect('/');
+  }
+}
+
+
 module.exports.createNewListings=async (req, res) => { 
   let url=req.file.path;
   let filename=req.file.filename

@@ -80,7 +80,7 @@
           </div>
         </div>
       </div>
-      <% if (currUser && !currUser._id.equals(listing.owner._id)) { %>
+      
       <div class="col-lg-4">
         <div class="card shadow-lg border-0 mb-4" >
           <div class="card-body p-4">
@@ -110,7 +110,7 @@
           </div>
         </div>
         <br>
-        <% } %>
+        
 
         <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
           <div class="card shadow-lg border-0 mb-4">

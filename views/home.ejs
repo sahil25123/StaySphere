@@ -37,35 +37,36 @@
     <!-- Search Section -->
     <section class="search-section py-5">
         <div class="container">
-            <form class="row g-3 justify-content-center search-form" data-aos="fade-up">
+            <form class="row g-3 justify-content-center search-form" action="/listings/search" method="get" role="search" data-aos="fade-up">
                 <div class="col-md-3">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
-                        <input type="text" class="form-control" placeholder="Where are you going?" required>
-                    </div>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-map-marker-alt"></i></span>
+                    <input type="text" name="query" class="form-control" placeholder="Where are you going?" required>
+                  </div>
                 </div>
                 <div class="col-md-2">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                        <input type="date" class="form-control" required>
-                    </div>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                    <input type="date" name="checkin" class="form-control" required>
+                  </div>
                 </div>
                 <div class="col-md-2">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
-                        <input type="date" class="form-control" required>
-                    </div>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-calendar-alt"></i></span>
+                    <input type="date" name="checkout" class="form-control" required>
+                  </div>
                 </div>
                 <div class="col-md-2">
-                    <div class="input-group">
-                        <span class="input-group-text"><i class="fas fa-user-friends"></i></span>
-                        <input type="number" class="form-control" placeholder="Guests" min="1" required>
-                    </div>
+                  <div class="input-group">
+                    <span class="input-group-text"><i class="fas fa-user-friends"></i></span>
+                    <input type="number" name="guests" class="form-control" placeholder="Guests" min="1" required>
+                  </div>
                 </div>
                 <div class="col-md-2">
-                    <button type="submit" class="btn btn-primary w-100 py-2">Search</button>
+                  <button type="submit" class="btn btn-primary w-100 py-2">Search</button>
                 </div>
-            </form>
+              </form>
+              
         </div>
     </section>
 

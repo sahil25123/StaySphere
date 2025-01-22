@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Review = require('./review');
 const User = require('./user');
 
+const categoryEnum = [
+    'Trending', 'Mountains', 'Beach', 'Hotel', 'City', 'Pools', 'Farms', 'Arctic', 'Igloo', 'Boathouse'
+  ];
+
 const listingSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -34,7 +38,16 @@ const listingSchema = new mongoose.Schema({
     owner:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"User"
-    }
+    },
+    category: {
+        type: String,
+        enum: categoryEnum,  // Enforcing the category values
+        required: true,
+      },
+      availableFrom: Date,
+      availableTo: Date,
+      maxGuests: Number,
+
 });
 
 listingSchema.post('findOneAndDelete', async  (listing)=> {
