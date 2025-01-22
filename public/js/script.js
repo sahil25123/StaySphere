@@ -81,3 +81,40 @@ dropdowns.forEach(dropdown => {
   });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  // Initialize Swiper
+  const swiper = new Swiper(".swiper-container", {
+    direction: "horizontal",
+    loop: true,
+    effect: "fade",
+    speed: 1000,
+    autoplay: {
+      delay: 5000,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+  })
+
+  // Initialize AOS
+  AOS.init({
+    duration: 1000,
+    once: true,
+  })
+
+  // Navbar scroll effect
+  const navbar = document.querySelector(".navbar")
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add("navbar-scrolled")
+    } else {
+      navbar.classList.remove("navbar-scrolled")
+    }
+  })
+})
+
