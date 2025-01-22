@@ -44,9 +44,6 @@ const listingSchema = new mongoose.Schema({
         enum: categoryEnum,  // Enforcing the category values
         required: true,
       },
-      availableFrom: Date,
-      availableTo: Date,
-      maxGuests: Number,
 
 });
 
