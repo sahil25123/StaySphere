@@ -14,6 +14,7 @@ const joi= require('joi');
 const listingRoutes = require('./routes/listings.js'); 
 const reviewsRoutes = require('./routes/reviews.js');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash'); 
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
@@ -22,12 +23,13 @@ const userRoutes = require('./routes/user.js');
 
 const port = 3001; 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost:27017/StaySphere')
+ const db_url= process.env.ATLASDB_URL
+mongoose.connect(db_url )
 main().then(()=> console.log('MongoDB Connected'))
 .catch(err => console.log(err));
 
 async function main() {
-    await mongoose.connect('mongodb://localhost:27017/StaySphere');
+    await mongoose.connect(db_url);
 }
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
@@ -37,7 +39,20 @@ app.engine('ejs', ejsMate);
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 
+const store =MongoStore.create({ 
+    mongoUrl: db_url,
+    crypto:{
+        secret: 'mysecretcodewithsahil',
+    },
+    touchAfter:24*3600
+})
+
+store.on("error", ()=>{
+    console.log("Error in session store")
+})
+
 const sessionConfig = {
+    store,
     secret:"mysecretcodewithsahil",
     resave: false,
     saveUninitialized: true,
