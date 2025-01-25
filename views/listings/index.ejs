@@ -1,50 +1,47 @@
 <% layout("/layouts/boillerplate") %>
 
-<div class="filter-container">
+<!-- Filter Container -->
+<div class="filter-container mb-4">
   <div class="container">
-    <div id="filters" class="filters-wrapper">
-      <div class="filter" data-filter="trending">
-        <i class="fa-solid fa-fire"></i>
-        <span>Trending</span>
+    <div id="filters" class="d-flex flex-wrap justify-content-between">
+      <!-- Filter buttons with icons -->
+      <div class="filter btn btn-outline-primary mb-2" data-filter="trending">
+        <i class="fa-solid fa-fire me-2"></i><span>Trending</span>
       </div>
-      <div class="filter" data-filter="mountains">
-        <i class="fa-solid fa-mountain-sun"></i>
-        <span>Mountains</span>
+      <div class="filter btn btn-outline-primary mb-2" data-filter="mountains">
+        <i class="fa-solid fa-mountain-sun me-2"></i><span>Mountains</span>
       </div>
-      <div class="filter" data-filter="beach">
-        <i class="fa-solid fa-umbrella-beach"></i>
-        <span>Beach</span>
+      <div class="filter btn btn-outline-primary mb-2" data-filter="beach">
+        <i class="fa-solid fa-umbrella-beach me-2"></i><span>Beach</span>
       </div>
-      <div class="filter" data-filter="hotel">
-        <i class="fa-solid fa-hotel"></i>
-        <span>Hotel</span>
+      <div class="filter btn btn-outline-primary mb-2" data-filter="hotel">
+        <i class="fa-solid fa-hotel me-2"></i><span>Hotel</span>
       </div>
-      <div class="filter" data-filter="city">
-        <i class="fa-solid fa-city"></i>
-        <span>City</span>
+      <div class="filter btn btn-outline-primary mb-2" data-filter="city">
+        <i class="fa-solid fa-city me-2"></i><span>City</span>
       </div>
-      <div class="filter" data-filter="pools">
-        <i class="fa-solid fa-water-ladder"></i>
-        <span>Pools</span>
+      <div class="filter btn btn-outline-primary mb-2" data-filter="pools">
+        <i class="fa-solid fa-water-ladder me-2"></i><span>Pools</span>
       </div>
-      <div class="filter" data-filter="farms">
-        <i class="fa-solid fa-cow"></i>
-        <span>Farms</span>
+      <div class="filter btn btn-outline-primary mb-2" data-filter="farms">
+        <i class="fa-solid fa-cow me-2"></i><span>Farms</span>
       </div>
-      <div class="filter" data-filter="arctic">
-        <i class="fa-regular fa-snowflake"></i>
-        <span>Arctic</span>
+      <div class="filter btn btn-outline-primary mb-2" data-filter="arctic">
+        <i class="fa-regular fa-snowflake me-2"></i><span>Arctic</span>
       </div>
-      <div class="filter" data-filter="igloo">
-        <i class="fa-solid fa-igloo"></i>
-        <span>Igloo</span>
+      <div class="filter btn btn-outline-primary mb-2" data-filter="igloo">
+        <i class="fa-solid fa-igloo me-2"></i><span>Igloo</span>
       </div>
-      <div class="filter" data-filter="boathouse">
-        <i class="fa-solid fa-ship"></i>
-        <span>Boathouse</span>
+      <div class="filter btn btn-outline-primary mb-2" data-filter="boathouse">
+        <i class="fa-solid fa-ship me-2"></i><span>Boathouse</span>
       </div>
     </div>
   </div>
+</div>
+
+<!-- Listings Container -->
+<div id="filtered-content" class="container">
+  <!-- Filtered listings will appear here -->
 </div>
 
 <main class="listings-page py-5">
@@ -54,7 +51,7 @@
       <p class="text-center text-muted lead">Explore our curated collection of unique accommodations</p>
     </header>
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div id="listings" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
       <% for(let listing of listings) { %>
         <div class="col">
           <div class="card h-100 listing-card shadow-sm">
@@ -83,3 +80,73 @@
     </div>
   </div>
 </main>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const filters = document.querySelectorAll('.filter');
+  const contentWrapper = document.getElementById('filtered-content'); // Container for displaying listings
+  const listingsContainer = document.getElementById('listings'); // Container for all listings
+
+  // Function to fetch and display listings
+  async function fetchListings(category) {
+    try {
+      console.log(`Fetching listings for category: ${category}`); // Debug log
+      listingsContainer.innerHTML = '<p>Loading...</p>'; // Add loading message
+
+      const response = await fetch(`/listings/filter?category=${category}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const listings = await response.json();
+      console.log('Fetched Listings:', listings); // Debug log
+
+      // Render the listings dynamically
+      listingsContainer.innerHTML = listings.length
+        ? listings
+            .map(
+              (listing) => `
+              <div class="col-12 col-md-6 col-lg-4">
+                <div class="card listing-card shadow-sm h-100">
+                  <img src="${listing.image.url}" class="card-img-top listing-img" alt="${listing.title}">
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title listing-title">${listing.title}</h5>
+                    <p class="card-text listing-location"><i class="fas fa-map-marker-alt me-2"></i>${listing.location}</p>
+                    <div class="listing-rating mb-2">
+                      ${Array.from({ length: Math.floor(listing.rating) }).map(() => `<i class="fas fa-star"></i>`).join('')}
+                      ${listing.rating % 1 !== 0 ? '<i class="fas fa-star-half-alt"></i>' : ''}
+                      <span class="rating-number">${listing.rating}</span>
+                    </div>
+                    <p class="card-text listing-description text-muted">${listing.description.substring(0, 100)}...</p>
+                    <div class="listing-details mt-auto">
+                      <p class="listing-price mb-2">₹${listing.price.toLocaleString("en-IN")} <span class="per-night">per night</span></p>
+                      <a href="/listings/${listing.id}" class="btn btn-primary w-100">View Details</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `
+            )
+            .join('')
+        : '<p>No listings available for this category.</p>';
+    } catch (error) {
+      console.error('Error fetching listings:', error);
+      listingsContainer.innerHTML = '<p>Failed to load listings. Please try again later.</p>';
+    }
+  }
+
+  // Add click event listeners to filters
+  filters.forEach((filter) => {
+    filter.addEventListener('click', () => {
+      const category = filter.dataset.filter;
+
+      // Highlight the active filter
+      filters.forEach((f) => f.classList.remove('active'));
+      filter.classList.add('active');
+
+      // Fetch and display the listings for the selected category
+      fetchListings(category);
+    });
+  });
+});
+</script>
