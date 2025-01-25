@@ -30,7 +30,8 @@ module.exports.searchListings =async (req, res) => {
 module.exports.createNewListings=async (req, res) => { 
   let url=req.file.path;
   let filename=req.file.filename
-    let { title, description, price, location, country } = req.body;
+    let { title, description, price, location, country , category} = req.body;
+    category = Array.isArray(category) ? category : [category];
 
     // Create the listing object with the image properly formatted
     const listing = new Listing({
@@ -43,6 +44,7 @@ module.exports.createNewListings=async (req, res) => {
         price,
         location,
         country,
+        category,
     });
     listing .owner=req.user._id;
     listing.image= {filename,url};
@@ -85,7 +87,7 @@ module.exports.createNewListings=async (req, res) => {
   }
   module.exports.updateListing=async (req, res) => {
     let { id } = req.params;
-    let { title, description, image, price, location, country } = req.body;
+    let { title, description, image, price, location, country, category } = req.body;
   
     // Find the existing listing
     const existingListing = await Listing.findById(id);
@@ -108,6 +110,7 @@ module.exports.createNewListings=async (req, res) => {
             price,
             location,
             country,
+            category,
         },
         { new: true } // Return the updated document
     );

@@ -22,13 +22,61 @@
               <div class="mb-3">
                 <label for="image" class="form-label">Upload New Image</label>
                 <input name="image" value="<%= listing.image.url %>" type="file" class="form-control" >
-            </div>
+              </div>
+              <div class="mb-3">
+                <label for="category"  name="category"class="form-label">Category</label>
+                <div class="dropdown">
+                  <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    id="categoryDropdown"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    Select Categories
+                  </button>
+                  <ul class="dropdown-menu p-3" aria-labelledby="categoryDropdown" style="max-height: 200px; overflow-y: auto;">
+                    <li>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="Trending" name="category[]" value="Trending" <%= listing.category?.includes('Trending') ? 'checked' : '' %>>
+                        <label class="form-check-label" for="Trending">Trending</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="Mountains" name="category[]" value="Mountains" <%= listing.category?.includes('Mountains') ? 'checked' : '' %>>
+                        <label class="form-check-label" for="Mountains">Mountains</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="Beach" name="category[]" value="Beach" <%= listing.category?.includes('Beach') ? 'checked' : '' %>>
+                        <label class="form-check-label" for="Beach">Beach</label>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="Hotel" name="category[]" value="Hotel" <%= listing.category?.includes('Hotel') ? 'checked' : '' %>>
+                        <label class="form-check-label" for="Hotel">Hotel</label>
+                      </div>
+                    </li>
+                    
+                    <!-- Add more categories in the same pattern -->
+                  </ul>
+                </div>
+                <small class="form-text text-muted">
+                  Click the dropdown and select multiple categories by ticking the boxes.
+                </small>
+              </div>
+              
+              
               <div class="mb-3">
                 <label for="price" class="form-label">Price (per night)</label>
                 <div class="input-group">
                   <span class="input-group-text">₹</span>
                   <input type="number" class="form-control" id="price" name="price" value="<%= listing.price %>" required min="0">
                 </div>
+              
               </div>
               <div class="mb-3">
                 <label for="location" class="form-label">Location</label>

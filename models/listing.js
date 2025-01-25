@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 const Review = require('./review');
 const User = require('./user');
 
-const categoryEnum = [
-    'Trending', 'Mountains', 'Beach', 'Hotel', 'City', 'Pools', 'Farms', 'Arctic', 'Igloo', 'Boathouse'
-  ];
-
 const listingSchema = new mongoose.Schema({
     title: {
         type: String,
@@ -40,8 +36,8 @@ const listingSchema = new mongoose.Schema({
         ref:"User"
     },
     category: {
-        type: String,
-        enum: categoryEnum,  // Enforcing the category values
+        type: [String],
+        enum: ['Trending', 'Mountains', 'Beach', 'Hotel', 'City', 'Pools', 'Farms', 'Arctic', 'Igloo', 'Boathouse' , "Historic"],  // Enforcing the category values
         required: true,
       },
 
