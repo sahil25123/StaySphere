@@ -286,6 +286,171 @@ const data = [
       category: "Beach"
     },
     {
+      "title": "Serene Lodge in Hawaii",
+      "description": "Escape to a luxurious escape in this beautifully designed suite with private pool.",
+      "image": {
+        "filename": "listingimage",
+        "url": "https://images.unsplash.com/photo-1470165301023-58dab8118cc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxvZGdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
+      },
+      "price": 4578,
+      "location": "Phuket",
+      "country": "Australia",
+      "category": "Pools"
+    },{
+      "title": "Tropical Suite in Hawaii",
+      "description": "Escape to a luxurious escape in this beautifully designed property with state-of-the-art amenities.",
+      "image": {
+        "filename": "listingimage",
+        "url": "https://images.unsplash.com/photo-1470165301023-58dab8118cc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxvZGdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
+      },
+      "price": 2030,
+      "location": "Hawaii",
+      "country": "Indonesia",
+      "category": "City"
+    },
+    {
+      "title": "Exclusive Apartment in Hawaii",
+      "description": "Escape to a cozy retreat in this beautifully designed retreat with incredible views.",
+      "image": {
+        "filename": "listingimage",
+        "url": "https://images.unsplash.com/photo-1470165301023-58dab8118cc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxvZGdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
+      },
+      "price": 1186,
+      "location": "Barcelona",
+      "country": "Japan",
+      "category": "Trending"
+    },{
+      "title": "Modern Apartment in Phuket",
+      "description": "Escape to a cozy retreat in this spacious villa with luxurious comfort.",
+      "image": {
+        "filename": "listingimage",
+        "url": "https://images.unsplash.com/photo-1470165301023-58dab8118cc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxvZGdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
+      },
+      "price": 2008,
+      "location": "Rome",
+      "country": "Japan",
+      "category": "Pools"
+    },
+    {
+      "title": "Cosmic Lodge in Hawaii",
+      "description": "Escape to a paradise in this charming destination with state-of-the-art amenities.",
+      "image": {
+        "filename": "listingimage",
+        "url": "https://images.unsplash.com/photo-1470165301023-58dab8118cc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxvZGdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
+      },
+      "price": 1347,
+      "location": "Barcelona",
+      "country": "USA",
+      "category": "Historic"
+    },{
+      "title": "Rustic Cottage in Bali",
+      "description": "Escape to a modern haven in this spacious property with luxurious comfort.",
+      "image": {
+        "filename": "listingimage",
+        "url": "https://images.unsplash.com/photo-1470165301023-58dab8118cc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxvZGdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
+      },
+      "price": 4562,
+      "location": "Paris",
+      "country": "Switzerland",
+      "category": "Hotel"
+    },
+    {
+      "title": "Cosmic Villa in Barcelona",
+      "description": "Escape to a romantic getaway in this beautifully designed suite with incredible views.",
+      "image": {
+        "filename": "listingimage",
+        "url": "https://images.unsplash.com/photo-1470165301023-58dab8118cc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxvZGdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
+      },
+      "price": 4666,
+      "location": "Rome",
+      "country": "Thailand",
+      "category": "Beach"
+    },
+    {
+      "title": "Rustic Lodge in Bali",
+      "description": "Escape to a romantic getaway in this serene property with luxurious comfort.",
+      "image": {
+        "filename": "listingimage",
+        "url": "https://images.unsplash.com/photo-1470165301023-58dab8118cc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxvZGdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
+      },
+      "price": 4208,
+      "location": "Phuket",
+      "country": "Australia",
+      "category": "Pools"
+    },
+    {
+      "title": "Modern Lodge in Paris",
+      "description": "Escape to a cozy retreat in this beautifully designed property with unparalleled privacy.",
+      "image": {
+        "filename": "listingimage",
+        "url": "https://images.unsplash.com/photo-1470165301023-58dab8118cc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxvZGdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
+      },
+      "price": 3549,
+      "location": "Phuket",
+      "country": "Spain",
+      "category": "Beach"
+    },
+    {
+      "title": "Tropical Cottage in Cape Town",
+      "description": "Escape to a luxurious escape in this exclusive destination with state-of-the-art amenities.",
+      "image": {
+        "filename": "listingimage",
+        "url": "https://images.unsplash.com/photo-1470165301023-58dab8118cc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxvZGdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
+      },
+      "price": 3002,
+      "location": "Rome",
+      "country": "Thailand",
+      "category": "Historic"
+    },
+    {
+      "title": "Rustic House in Bali",
+      "description": "Escape to a luxurious escape in this beautifully designed destination with luxurious comfort.",
+      "image": {
+        "filename": "listingimage",
+        "url": "https://images.unsplash.com/photo-1470165301023-58dab8118cc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxvZGdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
+      },
+      "price": 2376,
+      "location": "Rome",
+      "country": "Japan",
+      "category": "Boathouse"
+    },
+    {
+      "title": "Modern Villa in Hawaii",
+      "description": "Escape to a paradise in this serene retreat with luxurious comfort.",
+      "image": {
+        "filename": "listingimage",
+        "url": "https://images.unsplash.com/photo-1470165301023-58dab8118cc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxvZGdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
+      },
+      "price": 2845,
+      "location": "New York",
+      "country": "Japan",
+      "category": "Arctic"
+    },
+    {
+      "title": "Serene Mansion in Phuket",
+      "description": "Escape to a paradise in this charming villa with state-of-the-art amenities.",
+      "image": {
+        "filename": "listingimage",
+        "url": "https://images.unsplash.com/photo-1470165301023-58dab8118cc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxvZGdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
+      },
+      "price": 3054,
+      "location": "Bali",
+      "country": "Italy",
+      "category": "Igloo"
+    },
+    {
+      "title": "Modern House in New York",
+      "description": "Escape to a cozy retreat in this beautifully designed suite with unparalleled privacy.",
+      "image": {
+        "filename": "listingimage",
+        "url": "https://images.unsplash.com/photo-1470165301023-58dab8118cc9?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGxvZGdlfGVufDB8fDB8fHww&auto=format&fit=crop&w=800&q=60"
+      },
+      "price": 1497,
+      "location": "Barcelona",
+      "country": "Italy",
+      "category": "Farms"
+    },
+    {
       title: "Eco-Friendly Treehouse Retreat",
       description:
         "Stay in an eco-friendly treehouse nestled in the forest. It's the perfect escape for nature lovers.",
