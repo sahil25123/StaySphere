@@ -1,122 +1,116 @@
-<style>
-  /* Dropdown Styling */
-.dropdown-menu {
-    border-radius: 10px;
-    background-color: #f8f9fa;
-    padding: 0.5rem;
-    min-width: 200px;
-}
+  <style>
+    /* Dropdown Styling */
+  .dropdown-menu {
+      border-radius: 10px;
+      background-color: #f8f9fa;
+      padding: 0.5rem;
+      min-width: 200px;
+  }
 
-/* Dropdown Header */
-.dropdown-header {
-    color: #343a40;
-    font-size: 1rem;
-}
+  /* Dropdown Header */
+  .dropdown-header {
+      color: #343a40;
+      font-size: 1rem;
+  }
 
-/* Dropdown Items Hover Effect */
-.dropdown-item:hover {
-    background-color: #e9ecef;
-    border-radius: 5px;
-}
+  /* Dropdown Items Hover Effect */
+  .dropdown-item:hover {
+      background-color: #e9ecef;
+      border-radius: 5px;
+  }
 
-/* Divider Styling */
-.dropdown-divider {
-    border-color: #dee2e6;
-}
+  /* Divider Styling */
+  .dropdown-divider {
+      border-color: #dee2e6;
+  }
 
-</style>
-<nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm border-bottom">
-  <div class="container">
-    <!-- Brand Logo -->
-    <a class="navbar-brand fw-bold" href="/">
-      <span class="brand-icon"><img src="../images/favicon.png" style="width: 30px; height: auto;"></span>
-      <span class="brand-text">StaySphere</span>
-    </a>
-
-    <!-- Toggle Button for Mobile View -->
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <!-- Navbar Content -->
-    <div class="collapse navbar-collapse" id="navbarContent">
-      <!-- Search Form -->
-      <form
-  class="d-flex mx-auto my-2 my-lg-0 position-relative"
-  action="/listings/search"
-  role="search"
-  method="get"
->
-  <input
-    class="form-control me-2 rounded-pill ps-5"
-    type="search"
-    name="query"
-    placeholder="Search destinations"
-    aria-label="Search"
-  />
-  <i class="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
-</form>
+  </style>
+  <nav class="navbar navbar-expand-lg navbar-light bg-white sticky-top shadow-sm border-bottom">
+    <div class="container">
+      <!-- Brand Logo -->
+      <a class="navbar-brand fw-bold" href="/">
+        <span class="brand-icon"><img src="../images/favicon.png" style="width: 30px; height: auto;"></span>
+        <span class="brand-text">StaySphere</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    
 
 
-      <!-- Navigation Links -->
-      <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
-        <li class="nav-item">
-          <a class="nav-link" href="/">Home</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/listings">Explore</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/listings/new">Host</a>
-        </li>
+      <!-- Navbar Content -->
+      <div class="collapse navbar-collapse" id="navbarContent">
+        <!-- Search Form -->
+        <form class="d-flex mx-auto my-2 my-lg-0 position-relative" action="/listings/search" role="search" method="get">
+          <input class="form-control me-2 rounded-pill ps-5"
+          type="search"
+          name="query"
+          placeholder="Search destinations"
+          aria-label="Search"
+          />
+    <i class="fas fa-search position-absolute top-50 start-0 translate-middle-y ms-3 text-muted"></i>
+  </form>
 
-        <!-- Language Selector -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle More-nav" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            More
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/">About Us</a></li>
-            <li><a class="dropdown-item" href="/">Contact</a></li>
-            <li><a class="dropdown-item" href="/">FAQs</a></li>
-          </ul>
-        </li>
 
-        <!-- Notifications -->
-        <!-- <li class="nav-item dropdown">
-          <a class="nav-link" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fas fa-bell"></i>
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-              3
-              <span class="visually-hidden">unread messages</span>
-            </span>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-            <li><a class="dropdown-item" href="#">New booking request</a></li>
-            <li><a class="dropdown-item" href="#">Upcoming trip reminder</a></li>
-            <li><a class="dropdown-item" href="#">New review received</a></li>
-          </ul>
-        </li> -->
+        <!-- Navigation Links -->
+        <ul class="navbar-nav mb-2 mb-lg-0 align-items-center">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/listings">Explore</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/listings/new">Host</a>
+          </li>
 
-        <!-- Profile Dropdown -->
-        <li class="nav-item dropdown ms-3">
-          <a class="btn  nav-link rounded-pill px-3 dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <i class="fa-solid fa-user me-2"></i><%= currUser ? currUser.username : 'Guest' %>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="profileDropdown">
-            <% if(!currUser) { %>
-              <li><a class="dropdown-item" href="/signup"><i class="fa-solid fa-user-plus me-2"></i>Sign Up</a></li>
-              <li><a class="dropdown-item" href="/login"><i class="fa-solid fa-right-to-bracket me-2"></i>Login</a></li>
-            <% } else { %>
-              <!-- <li><a class="dropdown-item" href="/profile"><i class="fa-solid fa-user-circle me-2"></i>My Profile</a></li> -->
-              <!-- <li><a class="dropdown-item" href="/bookings"><i class="fa-solid fa-calendar-check me-2"></i>My Bookings</a></li> -->
-              <!-- <li><a class="dropdown-item" href="/wishlist"><i class="fa-solid fa-heart me-2"></i>Wishlist</a></li> -->
-              <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
-            <% } %>
-          </ul>
-        </li>
-      </ul>
+          <!-- Language Selector -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle More-nav" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              More
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="/">About Us</a></li>
+              <li><a class="dropdown-item" href="/">Contact</a></li>
+              <li><a class="dropdown-item" href="/">FAQs</a></li>
+            </ul>
+          </li>
+
+          <!-- Notifications -->
+          <!-- <li class="nav-item dropdown">
+            <a class="nav-link" href="#" id="notificationDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-bell"></i>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                3
+                <span class="visually-hidden">unread messages</span>
+              </span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
+              <li><a class="dropdown-item" href="#">New booking request</a></li>
+              <li><a class="dropdown-item" href="#">Upcoming trip reminder</a></li>
+              <li><a class="dropdown-item" href="#">New review received</a></li>
+            </ul>
+          </li> -->
+
+          <!-- Profile Dropdown -->
+          <li class="nav-item dropdown ms-3">
+            <a class="btn  nav-link rounded-pill px-3 dropdown-toggle" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-user me-2"></i><%= currUser ? currUser.username : 'Guest' %>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow-lg" aria-labelledby="profileDropdown">
+              <% if(!currUser) { %>
+                <li><a class="dropdown-item" href="/signup"><i class="fa-solid fa-user-plus me-2"></i>Sign Up</a></li>
+                <li><a class="dropdown-item" href="/login"><i class="fa-solid fa-right-to-bracket me-2"></i>Login</a></li>
+              <% } else { %>
+                <!-- <li><a class="dropdown-item" href="/profile"><i class="fa-solid fa-user-circle me-2"></i>My Profile</a></li> -->
+                <!-- <li><a class="dropdown-item" href="/bookings"><i class="fa-solid fa-calendar-check me-2"></i>My Bookings</a></li> -->
+                <!-- <li><a class="dropdown-item" href="/wishlist"><i class="fa-solid fa-heart me-2"></i>Wishlist</a></li> -->
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="/logout"><i class="fa-solid fa-right-from-bracket me-2"></i>Logout</a></li>
+              <% } %>
+            </ul>
+          </li>
+        </ul>
+      </div>  
     </div>
-  </div>
-</nav>
+  </nav>

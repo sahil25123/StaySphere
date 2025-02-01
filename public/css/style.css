@@ -53,7 +53,7 @@ body {
   font-family: 'Poppins', sans-serif;
   padding: 0.5rem 1rem;
 }
-.a nav-link{
+.nav-link{
   color: var(--text-color);
 }
 .nav-link::after {
@@ -117,6 +117,7 @@ body {
   color: #fff;
 }
 
+
 /* Responsive adjustments */
 @media (max-width: 991.98px) {
   .navbar-nav {
@@ -124,14 +125,28 @@ body {
   }
 
   .nav-item {
-    text-align: center;
+    text-align: center; /* You may remove this if not needed */
   }
 
   .navbar-nav .nav-item {
     margin-left: 0;
     margin-right: 0;
   }
+
+  /* Ensure Bootstrap handles collapse properly */
+  .collapse {
+    transition: height 0.3s ease-in-out;
+  }
+
+  /* Remove !important to avoid conflicts */
+  .collapse:not(.show) {
+    display: none;
+  }
+  .navbar-collapse.collapse.show {
+    display: block !important;
+  }
 }
+
 /* Footer Styles */
 .footer {
     border-top: 1px solid rgba(0, 0, 0, 0.1);
