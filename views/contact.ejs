@@ -1,0 +1,143 @@
+<% layout("/layouts/boillerplate") %>
+
+<main class="contact-page">
+  <!-- Hero Section -->
+  <section class="hero contact-hero">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6">
+          <h1 class="display-4 fw-bold mb-4">Contact Us</h1>
+          <p class="lead mb-4">Have questions or need assistance? We're here to help!</p>
+        </div>
+        <div class="col-lg-6">
+          <img src="/images/contact-hero.jpg" alt="Contact StaySphere" class="img-fluid rounded-lg shadow-lg">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Information and Form Section -->
+  <section class="contact-info-form py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <div class="card border-0 shadow-sm h-100">
+            <div class="card-body">
+              <h2 class="h4 mb-4">Get in Touch</h2>
+              <ul class="list-unstyled">
+                <li class="mb-3">
+                  <i class="fas fa-map-marker-alt text-primary me-2"></i>
+                  123 StaySphere Street, City, Country
+                </li>
+                <li class="mb-3">
+                  <i class="fas fa-phone text-primary me-2"></i>
+                  <a href="tel:+1234567890" class="text-decoration-none">+1 (234) 567-890</a>
+                </li>
+                <li class="mb-3">
+                  <i class="fas fa-envelope text-primary me-2"></i>
+                  <a href="mailto:info@staysphere.com" class="text-decoration-none">info@staysphere.com</a>
+                </li>
+              </ul>
+              <h3 class="h5 mb-3">Follow Us</h3>
+              <div class="social-icons">
+                <a href="#" class="text-primary me-2"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="text-primary me-2"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-primary me-2"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-primary"><i class="fab fa-linkedin-in"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-8">
+          <div class="card border-0 shadow-sm">
+            <div class="card-body">
+              <h2 class="h4 mb-4">Send Us a Message</h2>
+              <form id="contactForm" action="/contact" method="POST">
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <label for="name" class="form-label">Your Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Your Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                  </div>
+                </div>
+                <div class="mb-3">
+                  <label for="subject" class="form-label">Subject</label>
+                  <input type="text" class="form-control" id="subject" name="subject" required>
+                </div>
+                <div class="mb-3">
+                  <label for="message" class="form-label">Your Message</label>
+                  <textarea class="form-control" id="message" name="message" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Map Section -->
+  <section class="map-section py-5 bg-light">
+    <div class="container">
+      <h2 class="h3 text-center mb-4">Find Us on the Map</h2>
+      <div class="map-container rounded-lg shadow-sm">
+        <!-- Replace the src with your actual Google Maps embed URL -->
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.1422937950147!2d-73.98731968459391!3d40.74844797932881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259a9b3117469%3A0xd134e199a405a163!2sEmpire%20State%20Building!5e0!3m2!1sen!2sus!4v1616562084161!5m2!1sen!2sus" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section py-5">
+    <div class="container">
+      <h2 class="h3 text-center mb-4">Frequently Asked Questions</h2>
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="accordion" id="faqAccordion">
+            <div class="accordion-item">
+              <h3 class="accordion-header" id="faqHeading1">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+                  How do I make a reservation?
+                </button>
+              </h3>
+              <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  To make a reservation, simply search for your desired location and dates on our website, select a property, and follow the booking process. You'll need to create an account or log in to complete your reservation.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h3 class="accordion-header" id="faqHeading2">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                  What is your cancellation policy?
+                </button>
+              </h3>
+              <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  Our cancellation policy varies depending on the property and the length of stay. Generally, you can find the specific cancellation policy for each listing on the property's page. We recommend reviewing this information before booking.
+                </div>
+              </div>
+            </div>
+            <div class="accordion-item">
+              <h3 class="accordion-header" id="faqHeading3">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                  How can I become a host on StaySphere?
+                </button>
+              </h3>
+              <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                  To become a host, click on the "Become a Host" link in the navigation menu. You'll need to create an account, provide information about your property, set your pricing and availability, and upload photos. Our team will review your listing before it goes live.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+

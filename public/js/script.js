@@ -117,4 +117,75 @@ window.addEventListener("scroll", () => {
   }
 })
 })
+document.addEventListener("DOMContentLoaded", () => {
+  // Animate elements on scroll
+  const animateOnScroll = () => {
+    const elements = document.querySelectorAll(".fade-in-up")
+    elements.forEach((element) => {
+      const elementTop = element.getBoundingClientRect().top
+      const windowHeight = window.innerHeight
+      if (elementTop < windowHeight - 50) {
+        element.classList.add("animated")
+      }
+    })
+  }
+
+  window.addEventListener("scroll", animateOnScroll)
+  animateOnScroll() // Initial check on page load
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault()
+      document.querySelector(this.getAttribute("href")).scrollIntoView({
+        behavior: "smooth",
+      })
+    })
+  })
+})
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  // Form validation
+  const contactForm = document.getElementById("contactForm")
+  if (contactForm) {
+    contactForm.addEventListener(
+      "submit",
+      (event) => {
+        if (!contactForm.checkValidity()) {
+          event.preventDefault()
+          event.stopPropagation()
+        }
+        contactForm.classList.add("was-validated")
+      },
+      false,
+    )
+  }
+
+  // Smooth scroll for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener("click", function (e) {
+      e.preventDefault()
+      document.querySelector(this.getAttribute("href")).scrollIntoView({
+        behavior: "smooth",
+      })
+    })
+  })
+
+  // Animate elements on scroll
+  const animateOnScroll = () => {
+    const elements = document.querySelectorAll(".fade-in-up")
+    elements.forEach((element) => {
+      const elementTop = element.getBoundingClientRect().top
+      const windowHeight = window.innerHeight
+      if (elementTop < windowHeight - 50) {
+        element.classList.add("animated")
+      }
+    })
+  }
+
+  window.addEventListener("scroll", animateOnScroll)
+  animateOnScroll() // Initial check on page load
+})
 

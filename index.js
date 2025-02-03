@@ -80,6 +80,31 @@ app.use((req, res, next) => {
     next();
 });
 
+
+app.use("/about", (req, res, ) => {
+    res.render("about.ejs");
+}
+)
+app.use("/contact", (req, res, ) => {
+    res.render("contact.ejs");
+})
+app.post('/subscribe', async (req, res) => {
+    const { email } = req.body;
+  
+    try {
+      // Here you would typically save the email to your database
+      // For this example, we'll just simulate the process
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulating database operation
+  
+      // Flash a success message
+      req.flash('success', 'Thank you for subscribing!');
+      res.redirect('/');
+    } catch (error) {
+      console.error('Subscription error:', error);
+      req.flash('error', 'An error occurred. Please try again.');
+      res.redirect('/');
+    }
+  });
 // Route to render the home page with featured listings
 app.get("/", async (req, res) => {
     try {
