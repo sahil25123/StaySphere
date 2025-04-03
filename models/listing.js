@@ -5,17 +5,17 @@ const User = require('./user');
 const listingSchema = new mongoose.Schema({
     title: {
         type: String,
-        required: true, // 'required' is the correct field name
+        required: true, 
     },
     description: String,
     price: {
         type: Number,
-        required: true,  // Adding a required field for price
+        required: true,  
     },
     image: {
         filename: {
             type: String,
-            default: 'listingimage', // Default filename if not provided
+            default: 'listingimage', 
         },
         url: {
             type: String,

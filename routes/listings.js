@@ -16,7 +16,7 @@ router.get('/filter', async (req, res) => {
         category: { $regex: new RegExp(`^${category}$`, 'i') }
       });
       
-      //console.log('Listings found:', listings); // Log the listings to debug
+      //console.log('Listings found:', listings); 
       res.json(listings);
   });
   

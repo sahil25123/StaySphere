@@ -39,8 +39,8 @@ module.exports.createNewListings=async (req, res) => {
         title,
         description,
         image: {
-            filename: filename, // Default filename or any placeholder value
-            url: url, // The URL entered by the user
+            filename: filename, 
+            url: url, 
         },
         price,
         location,
@@ -106,14 +106,14 @@ module.exports.createNewListings=async (req, res) => {
             title,
             description,
             image: image
-                ? { filename: existingListing.image.filename, url: image } // Update URL, retain filename
-                : existingListing.image, // Retain existing image object
+                ? { filename: existingListing.image.filename, url: image } 
+                : existingListing.image, 
             price,
             location,
             country,
             category,
         },
-        { new: true } // Return the updated document
+        { new: true } 
     );
     if(typeof req.file !== 'undefined'){ 
       let url=req.file.path;
