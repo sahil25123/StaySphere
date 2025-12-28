@@ -79,7 +79,7 @@ app.use((req, res, next) => {
     res.locals.currUser = req.user;
     next();
 });
-//kdkd
+
 
 app.use("/about", (req, res, ) => {
     res.render("about.ejs");
